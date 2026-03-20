@@ -1,0 +1,12 @@
+[project]
+name = "rylanpeng-dev"
+version = "0.1.0"
+description = "Rylan Peng's Technical Blog"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mkdocs-material>=9.7.6",
+    "mkdocs-git-revision-date-localized-plugin>=1.2.0",
+    "mkdocs-minify-plugin>=0.8.0",
+    "mkdocs-rss-plugin>=1.12.0",
+]

@@ -1,0 +1,103 @@
+site_name: rylanpeng.dev
+site_url: https://rylanpeng.dev
+site_author: Rylan Peng
+site_description: A technical blog about Robotics, Embedded Systems, and AI.
+repo_url: https://github.com/rylanpeng/rylanpeng.dev
+repo_name: rylanpeng/rylanpeng.dev
+
+theme:
+  name: material
+  language: en
+  icon:
+    logo: material/robot
+  font:
+    text: Inter
+    code: Fira Code
+  features:
+    - navigation.path
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    # Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+      primary: red
+      accent: indigo
+
+    # Light Mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+      primary: red
+      accent: indigo
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: false
+      type: date
+      fallback_to_build_date: true
+  - blog:
+      blog_dir: .
+      archive: false
+      post_url_format: "{file}"
+      post_date_format: "MMMM d, YYYY"
+      categories: true
+      blog_toc: true
+  - minify:
+      minify_html: true
+  - rss:
+      use_git: false
+      date_from_meta:
+        as_creation: date
+        as_update: updated
+      match_path: "^(about|index|posts/).*"
+
+nav:
+  - About: about.md
+  - Home: index.md
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rylanpeng
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/rylanpeng
+
+copyright: Copyright &copy; 2026 Rylan Peng

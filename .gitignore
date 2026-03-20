@@ -1,0 +1,14 @@
+# MkDocs build directory
+site/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# WIP files
+wip/
