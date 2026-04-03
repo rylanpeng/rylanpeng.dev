@@ -1,12 +1,12 @@
 ---
-title: What is INITRD?
+title: What is initrd?
 date: 2026-04-02
 categories:
   - Jetson Orin Nano
   - Deep Dive
 ---
 
-# What is INITRD?
+# What is initrd?
 
 If you have ever peeked at `/boot/extlinux/extlinux.conf`, you probably noticed a line called `INITRD`. Have you ever wondered what this thing is, what it does, and why we need it?
 
@@ -17,7 +17,7 @@ If you have ever peeked at `/boot/extlinux/extlinux.conf`, you probably noticed 
 !!! note "Note"
     These notes are based on NVIDIA Jetson Linux R36.5 behavior and the `nvidia-l4t-initrd` package.
 
-## Why Do We Need initrd?
+## Why do we need initrd?
 
 After UEFI finishes, the kernel is launched with three key inputs:
 
@@ -49,9 +49,9 @@ The initrd breaks the cycle: the bootloader loads it into RAM, so the kernel can
 
 ---
 
-## What Is Inside Jetson initrd?
+## What is inside initrd?
 
-On Jetson, `/boot/initrd` is a gzipped `cpio` archive. NVIDIA defines which files go into it via configuration lists in:
+On Jetson, `/boot/initrd` is a gzipped `cpio` archive. The files included in the initrd are specified via configuration lists in:
 
 ```bash
 /etc/nv-update-initrd/list.d/
@@ -97,7 +97,7 @@ The `binlist` includes binaries for disk encryption (LUKS) and secure storage:
 !!! important
     Now that we know what's inside, it's clear that the **initrd must stay in sync** with our modules. If we ever modify or update modules (either in-tree or OOT), we better update the initrd as well!
 
-### How to Update initrd?
+### How to update initrd?
 
 We use the `nv-update-initrd` command:
 
@@ -111,7 +111,7 @@ The script lives at `/usr/sbin/nv-update-initrd` on the Jetson, installed by the
 
 Here is exactly what happens when we run `sudo nv-update-initrd`, step by step:
 
-### Step 1: Backup the Current initrd
+### Step 1: Backup the current initrd
 ```bash
 cp "${INITRD}" "${INITRD_BAK}"
 ```
@@ -125,13 +125,13 @@ gunzip -c "${_initrd_path}" | cpio -i --quiet
 ```
 The initrd is essentially a compressed archive (a `.cpio.gz` file). The script creates a temporary folder and unpacks everything there so it can modify the files. After this step, `$DESTDIR` looks like a mini Linux filesystem with `lib/`, `etc/`, `usr/`, etc.
 
-### Step 3: Remove Old Modules
+### Step 3: Remove old modules
 ```bash
 rm -rf "${DESTDIR}/lib/modules/"*
 ```
 Kernel modules take up significant space. To prevent the initrd from growing uncontrollably with every update, the script wipes out all old drivers before adding fresh ones.
 
-### Step 4: Identify the Kernel Version
+### Step 4: Identify the kernel version
 ```bash
 _kernel_version="$(strings "${_image_path}" \
     | grep -oE "Linux version [0-9a-zA-Z\.\-]+[+]* " \
@@ -139,7 +139,7 @@ _kernel_version="$(strings "${_image_path}" \
 ```
 The script looks at the actual kernel binary (`/boot/Image`) and extracts the version string (e.g., `5.15.185-tegra`). It needs this exact string to know which folder under `/lib/modules/` to pull the new drivers from.
 
-### Step 5: Inject New Drivers
+### Step 5: Inject new drivers
 ```bash
 # Read the list of "mission-critical" modules
 for file in "${LIST_DIR}/"*; do
@@ -151,7 +151,7 @@ copy_files_initrd "${DESTDIR}" "${temp_list}" "${_kernel_version}"
 ```
 It reads the configuration files in `/etc/nv-update-initrd/list.d/` (the `modules` and `binlist` files shown previously) to decide which drivers are mission-critical for booting. Then it pulls those fresh `.ko` files from our system's `/lib/modules/<version>/` into the temporary folder.
 
-### Step 6: Copy Modprobe Configs
+### Step 6: Copy modprobe configs
 ```bash
 for modprobe_dir in "/etc/modprobe.d" "/lib/modprobe.d"; do
     rm -rf "${DESTDIR:?}/${modprobe_dir}"
@@ -163,13 +163,13 @@ done
 ```
 It copies our custom hardware rules (`modprobe` configs). These files tell the system how to load certain drivers (e.g., specific parameters for the GPU or Wi-Fi).
 
-### Step 7: Repacking the Archive
+### Step 7: Repacking the archive
 ```bash
 find . | cpio -H newc -o --quiet | gzip -9 -n > "${_initrd_path}"
 ```
 Now that the files are updated, the script zips the folder back up into the `cpio.gz` format.
 
-### Step 8: The Final Swap
+### Step 8: The final swap
 ```bash
 # Recall from Step 1: INITRD_BAK is the file we've been modifying
 cp "${INITRD_BAK}" "${INITRD}"
