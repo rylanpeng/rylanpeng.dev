@@ -20,20 +20,20 @@ This guide covers how to enable **PREEMPT_RT** on the Jetson Orin Nano, transfor
 Watch the following video for a complete walkthrough of the process:
 [YouTube Video Link] (xxx)
 
-## Verify System Performance
+## 1. Verify system performance
 
 Before we jump into the build, let's establish a performance baseline. This helps us see the actual real-time improvement later on.
 
-### Check the Current Kernel
+### Check the current kernel
 
 First, let's verify the kernel version and variant currently running on the device.
 
-```bash hl_lines="1"
+```bash hl_lines="2"
 $ uname -a
 # Linux ubuntu 5.15.136-tegra #1 SMP PREEMPT Tue Jan 13 01:23:45 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
 ```
 
-### Install Stress-Test Tools
+### Install stress-test tools
 
 Install the necessary utilities for real-time performance measurement and system stressing.
 
@@ -45,7 +45,7 @@ $ sudo apt upgrade -y
 $ sudo apt install -y rt-tests stress-ng
 ```
 
-### Run Latency Tests
+### Run latency tests
 
 To measure the baseline latency, run a stress test in one terminal and the cyclic test in another.
 
@@ -60,19 +60,19 @@ To measure the baseline latency, run a stress test in one terminal and the cycli
     ```
 
 !!! example "Example Output"
-    ![Latency Test Results](xxx)
+    ![Latency Test Results](../../../img/2-enable-preempt-rt-1-stress-test.png)
 
 ---
 
-## Prerequisites
+## 2. Prerequisites
 
-Make sure you have the source code and packages ready before moving forward. Check out [Get Ready!](./1-get-ready.md)
+Make sure to have the source code and packages ready before moving forward. Check out [Get Ready!](./1-get-ready.md)
 
 ---
 
-## Build and Enable PREEMPT_RT
+## 3. Build and enable PREEMPT_RT
 
-Now for the fun part—building and enabling the patch! We'll use a helper repository to streamline the process.
+Now for the fun part --> building and enabling the patch! We'll use a helper repository to streamline the process.
 
 Download the helper repository and run the script.
 
@@ -94,20 +94,20 @@ $ ./build-preempt-rt.sh <install-path>
 
 ---
 
-## Verify the Installation
+## 4. Verify the installation
 
 Once the script finishes, it's a good idea to double-check that everything was installed correctly.
 
-### Inspect the /boot Directory
+### Inspect the /boot directory
 
-You should see **`Image.backup`** and **`initrd.backup`** files created alongside the new kernel image.
+We should see **`Image.backup`** and **`initrd.backup`** files created alongside the new kernel image.
 
 ```bash
 $ ls /boot
 # Image  Image.backup  initrd  initrd.backup  ...
 ```
 
-### Inspect Kernel Modules
+### Inspect kernel modules
 
 Check `/lib/modules` to ensure both the **standard** and **RT** versions of the kernel modules are present.
 
@@ -118,17 +118,17 @@ $ ls /lib/modules
 
 ---
 
-## Add a Fallback Boot Entry
+## 5. Add a fallback boot entry
 
 ### Edit extlinux.conf
 
-Open the boot configuration file with `vim` or your preferred text editor.
+Open the boot configuration file with `vim` or preferred text editor.
 
 ```bash
 $ sudo vim /boot/extlinux/extlinux.conf
 ```
 
-### Add the Backup Entry
+### Add the backup entry
 
 Modify the configuration to include a fallback option:
 
@@ -147,53 +147,52 @@ Modify the configuration to include a fallback option:
 
 ---
 
-## Reboot
+## 6. Reboot
 ```sh
 $ sudo reboot
 ```
 
 ---
 
-## Verify the Boot Selection
+## 7. Verify the boot selection
 
-During the boot process, you will be presented with the boot menu.
-
-![Boot Menu Options](xxx)
+During the boot process, we will be presented with the boot menu.
 
 Select the **backup** entry if you ever need to roll back to the original kernel; otherwise, the system will boot using the new **PREEMPT_RT** image by default.
 
 ---
 
-## Verify the Results
+## 8. Verify the results
 
-### Check the RT Kernel Variant
+### Check the RT kernel variant
 
 Run `uname -a` again, and you should see the **`PREEMPT_RT`** identifier!
 
-```bash hl_lines="1"
+```bash hl_lines="2"
 $ uname -a
 # Linux ubuntu 5.15.136-rt-tegra #1 SMP PREEMPT_RT Tue Jan 13 01:23:45 UTC 2026 aarch64 aarch64 aarch64 GNU/Linux
 ```
 
-### Re-run Latency Tests
+### Re-run latency tests
 
 Perform the stress test and `cyclictest` again to observe the improvement in latency.
 
-Screenshot xxx (will add this later)
+!!! example "Example Output"
+    ![Latency Test Results (RT)](../../../img/2-enable-preempt-rt-2-stress-test.png)
 
 ---
 
-## Optimizing Performance (Optional)
+## Optimizing performance (Optional)
 
 You can boost performance even further by increasing the kernel timer frequency (`CONFIG_HZ`).
 
-### Open .config
+### 1. Open .config
 
 ```sh
 $ vim source/kernel/kernel-jammy-src/.config
 ```
 
-### Update Configuration
+### 2. Update configuration
 
 ```bash
 CONFIG_HZ_100=y
@@ -201,15 +200,15 @@ CONFIG_HZ_100=y
 CONFIG_HZ=100
 ```
 
-### Verify Dependency
+### 3. Verify dependency
 
 ```sh
 $ make oldconfig
 ```
 
-### Build and Install again
+### 4. Build and install again
 
-#### Restore Original Images
+#### Restore original images
 
 Restore the original `Image` and `initrd` before rebuilding.
 
@@ -218,13 +217,13 @@ $ sudo cp /boot/Image.backup /boot/Image
 $ sudo cp /boot/initrd.backup /boot/initrd
 ```
 
-#### Re-run the Build Script
+#### Re-run the build script
 
 ```bash
 $ ./build-preempt-rt.sh <install-path>
 ```
 
-#### Reboot
+### 5. Reboot
 
 Finally, reboot the system to apply the changes.
 
