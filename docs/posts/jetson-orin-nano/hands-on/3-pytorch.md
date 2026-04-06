@@ -24,7 +24,7 @@ The Jetson Orin Nano uses an ARM64 integrated GPU (nvgpu) with a custom L4T CUDA
 
 ---
 
-## Check version
+## 1. Check version
 
 First, check the JetPack / L4T / CUDA version running on the device.
 
@@ -38,7 +38,7 @@ $ nvidia-smi
 
 ---
 
-## Find the right wheel
+## 2. Find the right wheel
 
 NVIDIA hosts Jetson-specific PyTorch wheels at:
 
@@ -64,7 +64,7 @@ So the wheel I'll use is `torch-2.5.0a0+872d972e41.nv24.08.17622132-cp310-cp310-
 
 ---
 
-## Install system packages
+## 3. Install system packages
 
 ```sh
 $ sudo apt-get -y update
@@ -73,7 +73,7 @@ $ sudo apt-get install -y python3-pip libopenblas-dev
 
 ---
 
-## Install cusparselt
+## 4. Install cusparselt
 
 Required for any PyTorch wheel from the 24.06 release onward.
 
@@ -88,7 +88,7 @@ $ sudo CUDA_VERSION=12.4 bash ./install_cusparselt.sh
 
 ---
 
-## Configure uv to use the NVIDIA wheel
+## 5. Configure uv to use the NVIDIA wheel
 
 By default, `uv sync` pulls `torch` from PyPI on every run, which would overwrite the Jetson wheel with an x86_64 incompatible one. Fix this by pinning `torch` to the NVIDIA wheel URL in `pyproject.toml`.
 
@@ -123,7 +123,7 @@ torch = { url = "https://developer.download.nvidia.com/compute/redist/jp/v61/pyt
 
 ---
 
-## Set `UV_SKIP_WHEEL_FILENAME_CHECK=1`
+## 6. Set `UV_SKIP_WHEEL_FILENAME_CHECK=1`
 
 `uv` strictly validates that the version string inside the wheel metadata matches the wheel filename. NVIDIA's wheel has an inconsistent version string (`nv24.8` in metadata vs `nv24.08.17622132` derived from the filename), which causes:
 
@@ -147,7 +147,7 @@ $ uv sync
 
 ---
 
-## Verify GPU is working
+## 7. Verify GPU is working
 
 ```sh
 $ uv run python -c "import torch; print(torch.__version__); print('CUDA available:', torch.cuda.is_available()); print('Device count:', torch.cuda.device_count())"
@@ -163,7 +163,7 @@ Device count: 1
 
 A few extra errors I ran into. May not apply to your setup, but leaving these here just in case.
 
-### Error: libnvToolsExt.so.1
+### 1. libnvToolsExt.so.1
 
 ```
 OSError: libnvToolsExt.so.1: cannot open shared object file: No such file or directory
@@ -174,7 +174,7 @@ OSError: libnvToolsExt.so.1: cannot open shared object file: No such file or dir
 $ sudo apt-get install -y libnvtoolsext1 cuda-nvtx-12-6
 ```
 
-### Error: libcupti.so.12
+### 2. libcupti.so.12
 
 ```
 ImportError: libcupti.so.12: cannot open shared object file: No such file or directory
