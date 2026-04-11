@@ -1,12 +1,12 @@
 ---
-title: PyTorch setup on Jetson Orin Nano
+title: PyTorch Setup on Jetson Orin Nano
 date: 2026-04-05
 categories:
   - Jetson Orin Nano
   - Hands-on
 ---
 
-# PyTorch setup on Jetson Orin Nano
+# PyTorch Setup on Jetson Orin Nano
 
 The Jetson Orin Nano uses an ARM64 integrated GPU (nvgpu) with a custom L4T CUDA stack, so standard PyPI `torch` wheels won't work. This post walks through getting PyTorch running with proper GPU support.
 
