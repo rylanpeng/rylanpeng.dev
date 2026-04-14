@@ -26,19 +26,19 @@ theme:
     - content.code.copy
     - content.code.annotate
   palette:
-    # Dark Mode
-    - scheme: slate
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
-      primary: red
-      accent: indigo
-
     # Light Mode
     - scheme: default
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
+      primary: red
+      accent: indigo
+
+    # Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
       primary: red
       accent: indigo
 
