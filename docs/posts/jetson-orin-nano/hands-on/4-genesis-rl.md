@@ -177,7 +177,7 @@ Controls:
 
 ## Result
 
-<img src="../../../img/4-genesis-rl-result.gif" alt="Evaluation and teleoperation result" width="480" />
+<img src="../img/4-genesis-rl-result.gif" alt="Evaluation and teleoperation result" width="480" />
 
 ---
 

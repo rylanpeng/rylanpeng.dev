@@ -60,7 +60,7 @@ To measure the baseline latency, run a stress test in one terminal and the cycli
     ```
 
 !!! example "Example Output"
-    ![Latency Test Results](../../../img/2-enable-preempt-rt-1-stress-test.png)
+    ![Latency Test Results](../img/2-enable-preempt-rt-1-stress-test.png)
 
 ---
 
@@ -178,7 +178,7 @@ $ uname -a
 Perform the stress test and `cyclictest` again to observe the improvement in latency.
 
 !!! example "Example Output"
-    ![Latency Test Results (RT)](../../../img/2-enable-preempt-rt-2-stress-test.png)
+    ![Latency Test Results (RT)](../img/2-enable-preempt-rt-2-stress-test.png)
 
 ---
 

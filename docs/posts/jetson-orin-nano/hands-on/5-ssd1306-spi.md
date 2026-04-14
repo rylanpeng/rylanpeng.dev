@@ -51,7 +51,7 @@ SPI sends a raw stream of bits. The OLED needs to distinguish between **commands
 
 ### Wiring
 
-<img src="../../../img/5-ssd1306-spi-connection-setup.JPG" alt="Connection setup" width="320" />
+<img src="../img/5-ssd1306-spi-connection-setup.JPG" alt="Connection setup" width="320" />
 
 ---
 
@@ -63,7 +63,7 @@ The SPI controller and GPIO pins must be activated via a device-tree overlay. `j
 
 Before making any changes, note the current state of `extlinux.conf` so we can verify what changed afterwards.
 
-<img src="../../../img/5-ssd1306-spi-1-extlinux.png" alt="extlinux.conf before changes" width="600" />
+<img src="../img/5-ssd1306-spi-1-extlinux.png" alt="extlinux.conf before changes" width="600" />
 
 ### 2.2 Run jetson-io.py
 
@@ -73,11 +73,11 @@ $ sudo /opt/nvidia/jetson-io/jetson-io.py
 
 ### 2.3 Select *Configure Jetson 40pin Header*
 
-<img src="../../../img/5-ssd1306-spi-2-jetson-io-1.png" alt="jetson-io main menu" width="600" />
+<img src="../img/5-ssd1306-spi-2-jetson-io-1.png" alt="jetson-io main menu" width="600" />
 
 ### 2.4 Select *Configure header pins manually*
 
-<img src="../../../img/5-ssd1306-spi-2-jetson-io-2.png" alt="Configure header pins manually" width="600" />
+<img src="../img/5-ssd1306-spi-2-jetson-io-2.png" alt="Configure header pins manually" width="600" />
 
 ### 2.5 Set pin functions
 
@@ -87,13 +87,13 @@ Change the following assignments:
 - **Pin 31** → `gpio`
 - **Pin 32** → `gpio`
 
-<img src="../../../img/5-ssd1306-spi-2-jetson-io-3.png" alt="Pin configuration" width="600" />
+<img src="../img/5-ssd1306-spi-2-jetson-io-3.png" alt="Pin configuration" width="600" />
 
 ### 2.6 Save pin changes
 
 Select **Back**, then **Save pin changes**.
 
-<img src="../../../img/5-ssd1306-spi-2-jetson-io-4.png" alt="Save pin changes" width="600" />
+<img src="../img/5-ssd1306-spi-2-jetson-io-4.png" alt="Save pin changes" width="600" />
 
 ### 2.7 Exit without rebooting
 
@@ -102,7 +102,7 @@ Select **Save and exit without rebooting**.
 !!! warning
     Always verify the config before rebooting. A bad overlay can prevent the system from booting, potentially requiring a full reflash.
 
-<img src="../../../img/5-ssd1306-spi-2-jetson-io-5.png" alt="Save and exit" width="600" />
+<img src="../img/5-ssd1306-spi-2-jetson-io-5.png" alt="Save and exit" width="600" />
 
 ---
 
@@ -153,4 +153,4 @@ $ uv run python display.py
 ```
 
 !!! example "Result"
-    <img src="../../../img/5-ssd1306-spi-result.JPG" alt="SSD1306 displaying output" width="320" />
+    <img src="../img/5-ssd1306-spi-result.JPG" alt="SSD1306 displaying output" width="320" />
