@@ -186,31 +186,22 @@ Perform the stress test and `cyclictest` again to observe the improvement in lat
 
 You can boost performance even further by increasing the kernel timer frequency (`CONFIG_HZ`).
 
-### 1. Open .config
+### 1. Open defconfig
 
 ```sh
-$ vim source/kernel/kernel-jammy-src/.config
+$ vim Linux_for_Tegra/source/kernel/kernel-jammy-src/arch/arm64/configs/defconfig
 ```
 
 ### 2. Update configuration
-
 ```bash
-CONFIG_HZ_100=y
-# CONFIG_HZ_25 is not set
-CONFIG_HZ=100
+CONFIG_HZ_1000=y
 ```
 
-### 3. Verify dependency
-
-```sh
-$ make oldconfig
-```
-
-### 4. Build and install again
+### 3. Build and install again
 
 #### Restore original images
 
-Restore the original `Image` and `initrd` before rebuilding.
+Restore the original `Image` and `initrd` before rebuilding. This ensures the script's backup step saves the non-RT kernel as the fallback, not the RT kernel currently in `/boot`.
 
 ```bash
 $ sudo cp /boot/Image.backup /boot/Image
