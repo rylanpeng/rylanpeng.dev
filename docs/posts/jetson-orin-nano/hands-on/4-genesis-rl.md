@@ -1,21 +1,21 @@
 ---
-title: Bipedal Robot RL Simulation on Jetson Orin Nano
+title: Biped Robot RL Simulation on Jetson Orin Nano
 date: 2026-04-11
 categories:
   - Jetson Orin Nano
   - Hands-on
 ---
 
-# Bipedal Robot RL Simulation on Jetson Orin Nano
+# Biped Robot RL Simulation on Jetson Orin Nano
 
-Training a two-legged robot to walk using PPO and the Genesis physics simulator, running entirely on the Jetson Orin Nano.
+Training a biped robot to walk using PPO and the Genesis physics simulator, running entirely on the Jetson Orin Nano.
 
 <!-- more -->
 
 ---
 
 !!! note
-    This post walks through [rylanpeng/jetson-orin-nano-two-leg-robot-simulation](https://github.com/rylanpeng/jetson-orin-nano-two-leg-robot-simulation), built with the help of Copilot. PyTorch must already be installed on the device (see [3-pytorch.md](3-pytorch.md) if you haven't done that yet).
+    This post walks through [rylanpeng/jetson-orin-nano-biped-robot-simulation](https://github.com/rylanpeng/jetson-orin-nano-biped-robot-simulation), built with the help of Copilot. PyTorch must already be installed on the device (see [3-pytorch.md](3-pytorch.md) if you haven't done that yet).
 
 !!! note "References"
     - [Genesis: Embodied AI Physics Simulator](https://github.com/Genesis-Embodied-AI/Genesis)
@@ -29,8 +29,8 @@ Training a two-legged robot to walk using PPO and the Genesis physics simulator,
 ## 1. Clone the repo
 
 ```bash
-$ git clone git@github.com:rylanpeng/jetson-orin-nano-two-leg-robot-simulation.git
-$ cd jetson-orin-nano-two-leg-robot-simulation
+$ git clone git@github.com:rylanpeng/jetson-orin-nano-biped-robot-simulation.git
+$ cd jetson-orin-nano-biped-robot-simulation
 ```
 
 ---
@@ -87,7 +87,7 @@ If you see `[=] Already patched or no match`, the patch was already applied, not
 Default training runs 500 iterations and saves checkpoints every 100.
 
 ```bash
-$ uv run python -m two_leg_robot.train
+$ uv run python -m biped_robot.train
 ```
 
 Logs and checkpoints are saved under `logs/exp_<timestamp>/`. A `logs/latest` symlink always points to the most recent run.
@@ -96,7 +96,7 @@ You can customize the run:
 
 ```bash
 # Custom log prefix and longer run
-$ uv run python -m two_leg_robot.train --log_dir my_experiment --iterations 1000
+$ uv run python -m biped_robot.train --log_dir my_experiment --iterations 1000
 ```
 
 The console prints a table after each iteration:
@@ -143,13 +143,13 @@ Open `http://localhost:6006` in a browser. The `Train/mean_reward` curve should 
 Evaluation loads the most recent checkpoint from `logs/latest`:
 
 ```bash
-$ uv run python -m two_leg_robot.eval
+$ uv run python -m biped_robot.eval
 ```
 
 To load a specific run and checkpoint:
 
 ```bash
-$ uv run python -m two_leg_robot.eval --log_dir exp_2026-04-03_01-15-57 --model_id 500
+$ uv run python -m biped_robot.eval --log_dir exp_2026-04-03_01-15-57 --model_id 500
 ```
 
 The viewer opens and shows the robot walking under randomly sampled velocity commands.
@@ -161,7 +161,7 @@ The viewer opens and shows the robot walking under randomly sampled velocity com
 Drive the robot manually using the keyboard:
 
 ```bash
-$ uv run python -m two_leg_robot.eval_teleop
+$ uv run python -m biped_robot.eval_teleop
 ```
 
 Controls:
