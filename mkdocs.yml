@@ -92,6 +92,9 @@ nav:
   - About: about.md
   - Home: index.md
 
+extra_javascript:
+  - javascripts/extra.js
+
 extra:
   generator: false
   social:
