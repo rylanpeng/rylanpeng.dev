@@ -61,6 +61,10 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
+         <loc>https://rylanpeng.github.io/rylanpeng.dev/6-build-demo-image-weston/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
          <loc>https://rylanpeng.github.io/rylanpeng.dev/1-fundamentals/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
@@ -81,6 +85,10 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
+         <loc>https://rylanpeng.github.io/rylanpeng.dev/category/hands-on/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
          <loc>https://rylanpeng.github.io/rylanpeng.dev/category/deep-dive/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
@@ -89,15 +97,15 @@
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
-         <loc>https://rylanpeng.github.io/rylanpeng.dev/category/hands-on/</loc>
-         <lastmod>2026-05-17</lastmod>
-    </url>
-    <url>
          <loc>https://rylanpeng.github.io/rylanpeng.dev/page/2/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
     <url>
          <loc>https://rylanpeng.github.io/rylanpeng.dev/category/jetson-orin-nano/page/2/</loc>
+         <lastmod>2026-05-17</lastmod>
+    </url>
+    <url>
+         <loc>https://rylanpeng.github.io/rylanpeng.dev/category/yocto/page/2/</loc>
          <lastmod>2026-05-17</lastmod>
     </url>
 </urlset>
