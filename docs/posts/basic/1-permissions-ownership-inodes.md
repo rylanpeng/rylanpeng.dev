@@ -3,7 +3,7 @@ title: What is a file? Permissions, ownership, and the inode model
 date: 2026-07-04
 categories:
   - Linux Fundamentals
-  - Deep Dive
+  - Basic
 ---
 
 # What is a file? Permissions, ownership, and the inode model
